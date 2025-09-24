@@ -1,4 +1,12 @@
+modelos\mascotas.class
+modelosDAO\adoptantesDAO.class
+modelos\adoptantes.class
+modelos\tipomascota.class
+controladores\mascotasController.class
+modelosDAO\tiposDAO.class
 com\mycompany\examenframeworks02\salguero\arevalo\resources\JakartaEE10Resource.class
-controladores\adoptantes.class
 bd\cn.class
+modelosDAO\mascotasDAO.class
+controladores\tipoMascotaController.class
+controladores\adoptantesController.class
 com\mycompany\examenframeworks02\salguero\arevalo\JakartaRestConfiguration.class

@@ -22,7 +22,7 @@ public class mascotasController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * methods. kaka adhdadhkjashkjahdkjahdkahskdasi
      *
      * @param request servlet request
      * @param response servlet response
@@ -63,12 +63,19 @@ public class mascotasController extends HttpServlet {
                 mascotasDAO mDAO = new mascotasDAO();
                 if ("editar".equals(accion)) {
                     int id = Integer.parseInt(request.getParameter("id"));
-                    request.setAttribute("mascota", mDAO.getMascotaById(id));
+                    modelos.mascotas mascota = mDAO.getMascotaById(id);
+                    request.setAttribute("mascota", mascota);
+                    
+                    // Cargar tipos de mascotas para el select
+                    modelosDAO.tiposDAO tDAO = new modelosDAO.tiposDAO();
+                    java.util.List<modelos.tipomascota> tipos = tDAO.listar();
+                    request.setAttribute("tipos", tipos);
+                    
                     request.getRequestDispatcher("editarmascota.jsp").forward(request, response);
                 } else if ("eliminar".equals(accion)) {
                     int id = Integer.parseInt(request.getParameter("id"));
                     mDAO.eliminar(id);
-                    response.sendRedirect("vermascotas.jsp");
+                    response.sendRedirect("mascotasController");
                 }
                 else if ("agregar".equals(accion)) {
                     modelosDAO.tiposDAO tDAO = new modelosDAO.tiposDAO();
@@ -77,13 +84,41 @@ public class mascotasController extends HttpServlet {
                     request.getRequestDispatcher("agregarmascota.jsp").forward(request, response);
                 }
                 else {
-                    java.util.List<modelos.mascotas> mascotas = mDAO.listar();
+                    // Obtener parámetros de búsqueda y filtros
+                    String nombreBusqueda = request.getParameter("busqueda");
+                    String tipoFiltroStr = request.getParameter("tipoFiltro");
+                    Integer tipoFiltro = null;
+                    
+                    if (tipoFiltroStr != null && !tipoFiltroStr.trim().isEmpty() && !tipoFiltroStr.equals("0")) {
+                        try {
+                            tipoFiltro = Integer.parseInt(tipoFiltroStr);
+                        } catch (NumberFormatException e) {
+                            // Ignorar error de conversión
+                        }
+                    }
+                    
+                    java.util.List<modelos.mascotas> mascotas;
+                    
+                    // Si hay filtros, usar búsqueda con filtros, sino usar listado normal
+                    if ((nombreBusqueda != null && !nombreBusqueda.trim().isEmpty()) || tipoFiltro != null) {
+                        mascotas = mDAO.buscarConFiltros(nombreBusqueda, tipoFiltro);
+                    } else {
+                        mascotas = mDAO.listar();
+                    }
+                    
+                    // Cargar tipos para el filtro
+                    modelosDAO.tiposDAO tDAO = new modelosDAO.tiposDAO();
+                    java.util.List<modelos.tipomascota> tipos = tDAO.listar();
+                    
                     request.setAttribute("mascotas", mascotas);
+                    request.setAttribute("tipos", tipos);
+                    request.setAttribute("busquedaActual", nombreBusqueda);
+                    request.setAttribute("tipoFiltroActual", tipoFiltro);
                     request.getRequestDispatcher("vermascotas.jsp").forward(request, response);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                response.sendRedirect("vermascotas.jsp");
+                response.sendRedirect("mascotasController");
             }
     }
 
@@ -110,7 +145,7 @@ public class mascotasController extends HttpServlet {
                 m.setId_tipo(id_tipo);
                 m.setFoto(foto);
                 mDAO.insertar(m);
-                response.sendRedirect("vermascotas.jsp");
+                response.sendRedirect("mascotasController");
             } else if ("actualizar".equals(accion)) {
                 int id_mascota = Integer.parseInt(request.getParameter("id_mascota"));
                 String nombre = request.getParameter("nombre");
@@ -122,13 +157,13 @@ public class mascotasController extends HttpServlet {
                 m.setId_tipo(id_tipo);
                 m.setFoto(foto);
                 mDAO.actualizar(m);
-                response.sendRedirect("vermascotas.jsp");
+                response.sendRedirect("mascotasController");
             } else {
-                response.sendRedirect("vermascotas.jsp");
+                response.sendRedirect("mascotasController");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("vermascotas.jsp");
+            response.sendRedirect("mascotasController");
         }
     }
 
