@@ -14,10 +14,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author loled
+ * @author Xavier
  */
-@WebServlet(name = "Adoptantes", urlPatterns = {"/adoptantes"})
-public class adoptantes extends HttpServlet {
+@WebServlet(name = "adoptantesController", urlPatterns = {"/adoptantescontroller"})
+public class adoptantesController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,10 +36,10 @@ public class adoptantes extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet adoptantes</title>");
+            out.println("<title>Servlet adoptantesController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet adoptantes at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet adoptantesController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,7 +57,7 @@ public class adoptantes extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        processRequest(request, response);
     }
 
     /**
@@ -71,6 +71,7 @@ public class adoptantes extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
