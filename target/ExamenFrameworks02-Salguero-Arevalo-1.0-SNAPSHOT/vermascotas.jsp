@@ -27,6 +27,48 @@
                         <i class="fas fa-plus"></i> Agregar Mascota
                     </a>
                 </div>
+                
+                <!-- Formulario de Búsqueda y Filtros -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-search"></i> Buscar y Filtrar Mascotas
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="get" action="mascotasController" id="formBusqueda">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="busqueda" class="form-label">Buscar por nombre:</label>
+                                    <input type="text" class="form-control" id="busqueda" name="busqueda" 
+                                           value="${busquedaActual}" placeholder="Nombre de la mascota...">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="tipoFiltro" class="form-label">Filtrar por tipo:</label>
+                                    <select class="form-select" id="tipoFiltro" name="tipoFiltro">
+                                        <option value="0">Todos los tipos</option>
+                                        <c:forEach var="tipo" items="${tipos}">
+                                            <option value="${tipo.id_tipo}" 
+                                                    <c:if test="${tipoFiltroActual != null && tipoFiltroActual == tipo.id_tipo}">selected</c:if>>
+                                                ${tipo.nombre}
+                                            </option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <div class="btn-group w-100" role="group">
+                                        <button type="submit" class="btn btn-outline-primary">
+                                            <i class="fas fa-search"></i> Buscar
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" onclick="limpiarFiltros()">
+                                            <i class="fas fa-times"></i> Limpiar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead class="table-dark">
@@ -82,5 +124,53 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Función para limpiar filtros
+        function limpiarFiltros() {
+            document.getElementById('busqueda').value = '';
+            document.getElementById('tipoFiltro').value = '0';
+            // Enviar formulario automáticamente después de limpiar
+            document.getElementById('formBusqueda').submit();
+        }
+        
+        // Búsqueda en tiempo real (opcional)
+        let timeoutId;
+        document.getElementById('busqueda').addEventListener('input', function() {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(function() {
+                // Comentado para evitar demasiadas consultas
+                // document.getElementById('formBusqueda').submit();
+            }, 500);
+        });
+        
+        // Filtro automático al cambiar tipo
+        document.getElementById('tipoFiltro').addEventListener('change', function() {
+            document.getElementById('formBusqueda').submit();
+        });
+        
+        // Mostrar contador de resultados
+        window.addEventListener('DOMContentLoaded', function() {
+            const filas = document.querySelectorAll('tbody tr');
+            let contador = 0;
+            
+            filas.forEach(function(fila) {
+                // Contar solo las filas que no son el mensaje "No hay mascotas"
+                if (!fila.textContent.includes('No hay mascotas registradas')) {
+                    contador++;
+                }
+            });
+            
+            // Crear elemento contador si hay resultados
+            if (contador > 0) {
+                const contadorDiv = document.createElement('div');
+                contadorDiv.className = 'alert alert-info mb-3';
+                contadorDiv.innerHTML = '<i class="fas fa-info-circle me-2"></i>Mostrando ' + contador + ' mascota(s)';
+                
+                const tabla = document.querySelector('.table-responsive');
+                tabla.parentNode.insertBefore(contadorDiv, tabla);
+            }
+        });
+    </script>
     </body>
 </html>

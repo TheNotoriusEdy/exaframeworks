@@ -115,8 +115,18 @@ public class tipoMascotaController extends HttpServlet {
             throws ServletException, IOException {
         try {
             tiposDAO dao = new tiposDAO();
-            List<tipomascota> tipos = dao.listar();
+            String busqueda = request.getParameter("busqueda");
+            List<tipomascota> tipos;
+            
+            // Si hay búsqueda, filtrar por nombre
+            if (busqueda != null && !busqueda.trim().isEmpty()) {
+                tipos = dao.buscarPorNombre(busqueda);
+            } else {
+                tipos = dao.listar();
+            }
+            
             request.setAttribute("tipos", tipos);
+            request.setAttribute("busquedaActual", busqueda);
             RequestDispatcher dispatcher = request.getRequestDispatcher("verTipos.jsp");
             dispatcher.forward(request, response);
         } catch (ClassNotFoundException | SQLException e) {

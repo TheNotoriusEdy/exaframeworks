@@ -124,5 +124,71 @@ public class mascotasDAO {
         return m;
     }
     
+    //Buscar mascotas con filtros
+    public List buscarConFiltros(String nombreBusqueda, Integer tipoFiltro){
+        ArrayList<mascotas> list = new ArrayList<>();
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT m.id_mascota, m.id_tipo, m.nombre, m.foto, t.nombre as tipo_nombre ");
+        sql.append("FROM mascotas m ");
+        sql.append("LEFT JOIN tiposmascota t ON m.id_tipo = t.id_tipo ");
+        sql.append("WHERE 1=1 ");
+        
+        // Filtro por nombre
+        if (nombreBusqueda != null && !nombreBusqueda.trim().isEmpty()) {
+            sql.append("AND m.nombre LIKE ? ");
+        }
+        
+        // Filtro por tipo
+        if (tipoFiltro != null && tipoFiltro > 0) {
+            sql.append("AND m.id_tipo = ? ");
+        }
+        
+        sql.append("ORDER BY m.nombre ASC");
+        
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql.toString());
+            
+            int paramIndex = 1;
+            if (nombreBusqueda != null && !nombreBusqueda.trim().isEmpty()) {
+                ps.setString(paramIndex++, "%" + nombreBusqueda.trim() + "%");
+            }
+            if (tipoFiltro != null && tipoFiltro > 0) {
+                ps.setInt(paramIndex, tipoFiltro);
+            }
+            
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                mascotas m = new mascotas();
+                m.setId_mascota(rs.getInt("id_mascota"));
+                m.setId_tipo(rs.getInt("id_tipo"));
+                m.setNombre(rs.getString("nombre"));
+                m.setFoto(rs.getString("foto"));
+                m.setTipoNombre(rs.getString("tipo_nombre"));
+                list.add(m);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return list;
+    }
+    
+    //Contar total de mascotas (para paginación futura)
+    public int contarTotal(){
+        int total = 0;
+        String sql = "SELECT COUNT(*) as total FROM mascotas";
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                total = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return total;
+    }
     
 }
