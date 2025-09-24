@@ -101,43 +101,31 @@
             </div>
         </div>
         
-<<<<<<< HEAD
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-=======
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-        
-        <script>
-            // Función para limpiar filtros de tipos
-            function limpiarFiltrosTipos() {
-                document.getElementById('busqueda').value = '';
-                // Enviar formulario automáticamente después de limpiar
-                document.getElementById('formBusquedaTipos').submit();
-            }
+    
+    <script>
+        // Mostrar contador de resultados al cargar la página
+        window.addEventListener('DOMContentLoaded', function() {
+            const filas = document.querySelectorAll('tbody tr');
+            let contador = 0;
             
-            // Mostrar contador de resultados
-            window.addEventListener('DOMContentLoaded', function() {
-                const filas = document.querySelectorAll('tbody tr');
-                let contador = 0;
-                
-                filas.forEach(function(fila) {
-                    // Contar solo las filas que no son el mensaje "No hay tipos"
-                    if (!fila.textContent.includes('No hay tipos de mascotas registrados')) {
-                        contador++;
-                    }
-                });
-                
-                // Crear elemento contador si hay resultados
-                if (contador > 0) {
-                    const contadorDiv = document.createElement('div');
-                    contadorDiv.className = 'alert alert-info mb-3';
-                    contadorDiv.innerHTML = '<i class="fas fa-info-circle me-2"></i>Mostrando ' + contador + ' tipo(s) de mascota';
-                    
-                    const tabla = document.querySelector('.table-responsive');
-                    tabla.parentNode.insertBefore(contadorDiv, tabla);
+            filas.forEach(function(fila) {
+                // Contar solo las filas que no son el mensaje "No hay tipos"
+                if (!fila.textContent.includes('No hay tipos de mascotas registrados')) {
+                    contador++;
                 }
             });
-        </script>
->>>>>>> origin/xavier/Rama
+            
+            // Crear elemento contador si hay resultados
+            if (contador > 0) {
+                const contadorDiv = document.createElement('div');
+                contadorDiv.className = 'alert alert-info mb-3';
+                contadorDiv.innerHTML = '<i class="fas fa-info-circle me-2"></i>Mostrando ' + contador + ' tipo(s) de mascota';
+                
+                const tabla = document.querySelector('.table-responsive');
+                tabla.parentNode.insertBefore(contadorDiv, tabla);
+            }
+        });
+    </script>
     </body>
 </html>

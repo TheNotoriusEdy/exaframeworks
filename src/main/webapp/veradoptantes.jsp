@@ -163,6 +163,40 @@
         document.getElementById('filtroNombre').addEventListener('input', filtrarTabla);
         document.getElementById('filtroTelefono').addEventListener('input', filtrarTabla);
         document.getElementById('filtroMascota').addEventListener('input', filtrarTabla);
+        
+        // Mostrar contador de resultados al cargar la página
+        window.addEventListener('DOMContentLoaded', function() {
+            mostrarContadorTotal();
+        });
+        
+        function mostrarContadorTotal() {
+            const filas = document.querySelectorAll('tbody tr');
+            let contador = 0;
+            
+            filas.forEach(function(fila) {
+                // Contar solo las filas que no son el mensaje "No hay adoptantes"
+                if (!fila.textContent.includes('No hay adoptantes registrados')) {
+                    contador++;
+                }
+            });
+            
+            // Crear elemento contador si hay resultados
+            if (contador > 0) {
+                // Remover contador existente si existe
+                const contadorExistente = document.getElementById('contador-adoptantes');
+                if (contadorExistente) {
+                    contadorExistente.remove();
+                }
+                
+                const contadorDiv = document.createElement('div');
+                contadorDiv.id = 'contador-adoptantes';
+                contadorDiv.className = 'alert alert-info mb-3';
+                contadorDiv.innerHTML = '<i class="fas fa-info-circle me-2"></i>Mostrando ' + contador + ' adoptante(s)';
+                
+                const tabla = document.querySelector('.table-responsive');
+                tabla.parentNode.insertBefore(contadorDiv, tabla);
+            }
+        }
     </script>
     </body>
 </html>
