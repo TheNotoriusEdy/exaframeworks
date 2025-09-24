@@ -63,12 +63,19 @@ public class mascotasController extends HttpServlet {
                 mascotasDAO mDAO = new mascotasDAO();
                 if ("editar".equals(accion)) {
                     int id = Integer.parseInt(request.getParameter("id"));
-                    request.setAttribute("mascota", mDAO.getMascotaById(id));
+                    modelos.mascotas mascota = mDAO.getMascotaById(id);
+                    request.setAttribute("mascota", mascota);
+                    
+                    // Cargar tipos de mascotas para el select
+                    modelosDAO.tiposDAO tDAO = new modelosDAO.tiposDAO();
+                    java.util.List<modelos.tipomascota> tipos = tDAO.listar();
+                    request.setAttribute("tipos", tipos);
+                    
                     request.getRequestDispatcher("editarmascota.jsp").forward(request, response);
                 } else if ("eliminar".equals(accion)) {
                     int id = Integer.parseInt(request.getParameter("id"));
                     mDAO.eliminar(id);
-                    response.sendRedirect("vermascotas.jsp");
+                    response.sendRedirect("mascotasController");
                 }
                 else if ("agregar".equals(accion)) {
                     modelosDAO.tiposDAO tDAO = new modelosDAO.tiposDAO();
@@ -83,7 +90,7 @@ public class mascotasController extends HttpServlet {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                response.sendRedirect("vermascotas.jsp");
+                response.sendRedirect("mascotasController");
             }
     }
 
@@ -110,7 +117,7 @@ public class mascotasController extends HttpServlet {
                 m.setId_tipo(id_tipo);
                 m.setFoto(foto);
                 mDAO.insertar(m);
-                response.sendRedirect("vermascotas.jsp");
+                response.sendRedirect("mascotasController");
             } else if ("actualizar".equals(accion)) {
                 int id_mascota = Integer.parseInt(request.getParameter("id_mascota"));
                 String nombre = request.getParameter("nombre");
@@ -122,13 +129,13 @@ public class mascotasController extends HttpServlet {
                 m.setId_tipo(id_tipo);
                 m.setFoto(foto);
                 mDAO.actualizar(m);
-                response.sendRedirect("vermascotas.jsp");
+                response.sendRedirect("mascotasController");
             } else {
-                response.sendRedirect("vermascotas.jsp");
+                response.sendRedirect("mascotasController");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("vermascotas.jsp");
+            response.sendRedirect("mascotasController");
         }
     }
 

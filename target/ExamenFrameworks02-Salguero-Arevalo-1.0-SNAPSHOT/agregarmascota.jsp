@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="vermascotas.css"/>
     </head>
     <body>
-  <form class="formulario-mascota" action="mascotasController?accion=insertar" method="post" enctype="multipart/form-data">
+  <form class="formulario-mascota" action="mascotasController?accion=insertar" method="post">
           <h2>Registrar Mascota</h2>
           <div class="form-group">
             <label for="nombre">Nombre:</label>
@@ -19,6 +19,7 @@
             <label for="tipo">Tipo:</label>
             
             <select id="tipo" name="id_tipo" required>
+              <option value="">Selecciona un tipo</option>
               <!-- Opciones se llenarán dinámicamente desde la BD -->
               <c:forEach var="tipo" items="${tipos}">
                 <option value="${tipo.id_tipo}">${tipo.nombre}</option>
@@ -26,10 +27,13 @@
             </select>
           </div>
           <div class="form-group">
-            <label for="foto">Foto:</label>
-            <input type="file" id="foto" name="foto" accept="image/*">
+            <label for="foto">URL de la Foto:</label>
+            <input type="url" id="foto" name="foto" placeholder="https://ejemplo.com/imagen.jpg">
           </div>
-          <button type="submit" class="btn-registrar">Registrar</button>
+          <div class="form-buttons">
+            <a href="mascotasController" class="btn-cancelar">Cancelar</a>
+            <button type="submit" class="btn-registrar">Registrar</button>
+          </div>
         </form>
         
     </body>
