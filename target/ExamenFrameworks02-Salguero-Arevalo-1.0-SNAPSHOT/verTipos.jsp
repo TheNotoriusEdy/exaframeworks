@@ -27,6 +27,37 @@
                         </a>
                     </div>
                     
+                    <!-- Formulario de Búsqueda -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-search"></i> Buscar Tipos de Mascotas
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <form method="get" action="tipomascotacontroller" id="formBusquedaTipos">
+                                <input type="hidden" name="accion" value="listar">
+                                <div class="row g-3">
+                                    <div class="col-md-8">
+                                        <label for="busqueda" class="form-label">Buscar por nombre o descripción:</label>
+                                        <input type="text" class="form-control" id="busqueda" name="busqueda" 
+                                               value="${busquedaActual}" placeholder="Nombre del tipo de mascota...">
+                                    </div>
+                                    <div class="col-md-4 d-flex align-items-end">
+                                        <div class="btn-group w-100" role="group">
+                                            <button type="submit" class="btn btn-outline-primary">
+                                                <i class="fas fa-search"></i> Buscar
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary" onclick="limpiarFiltrosTipos()">
+                                                <i class="fas fa-times"></i> Limpiar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
                     <div class="table-responsive">
                         <table class="table table-striped table-hover">
                             <thead class="table-dark">
@@ -70,6 +101,43 @@
             </div>
         </div>
         
+<<<<<<< HEAD
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+=======
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+        
+        <script>
+            // Función para limpiar filtros de tipos
+            function limpiarFiltrosTipos() {
+                document.getElementById('busqueda').value = '';
+                // Enviar formulario automáticamente después de limpiar
+                document.getElementById('formBusquedaTipos').submit();
+            }
+            
+            // Mostrar contador de resultados
+            window.addEventListener('DOMContentLoaded', function() {
+                const filas = document.querySelectorAll('tbody tr');
+                let contador = 0;
+                
+                filas.forEach(function(fila) {
+                    // Contar solo las filas que no son el mensaje "No hay tipos"
+                    if (!fila.textContent.includes('No hay tipos de mascotas registrados')) {
+                        contador++;
+                    }
+                });
+                
+                // Crear elemento contador si hay resultados
+                if (contador > 0) {
+                    const contadorDiv = document.createElement('div');
+                    contadorDiv.className = 'alert alert-info mb-3';
+                    contadorDiv.innerHTML = '<i class="fas fa-info-circle me-2"></i>Mostrando ' + contador + ' tipo(s) de mascota';
+                    
+                    const tabla = document.querySelector('.table-responsive');
+                    tabla.parentNode.insertBefore(contadorDiv, tabla);
+                }
+            });
+        </script>
+>>>>>>> origin/xavier/Rama
     </body>
 </html>

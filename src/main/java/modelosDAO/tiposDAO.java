@@ -116,4 +116,27 @@ public class tiposDAO {
             return false;
         }
     }
+    
+    //Buscar tipos por nombre
+    public List buscarPorNombre(String nombreBusqueda){
+        ArrayList<tipomascota> list = new ArrayList<>();
+        String sql = "SELECT * FROM tiposmascota WHERE nombre LIKE ? ORDER BY nombre ASC";
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + nombreBusqueda.trim() + "%");
+            rs = ps.executeQuery();
+            
+            while (rs.next()) {
+                tipomascota t = new tipomascota();
+                t.setId_tipo(rs.getInt("id_tipo"));
+                t.setNombre(rs.getString("nombre"));
+                t.setDescripcion(rs.getString("descripcion"));
+                list.add(t);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return list;
+    }
 }

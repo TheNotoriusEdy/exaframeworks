@@ -84,8 +84,36 @@ public class mascotasController extends HttpServlet {
                     request.getRequestDispatcher("agregarmascota.jsp").forward(request, response);
                 }
                 else {
-                    java.util.List<modelos.mascotas> mascotas = mDAO.listar();
+                    // Obtener parámetros de búsqueda y filtros
+                    String nombreBusqueda = request.getParameter("busqueda");
+                    String tipoFiltroStr = request.getParameter("tipoFiltro");
+                    Integer tipoFiltro = null;
+                    
+                    if (tipoFiltroStr != null && !tipoFiltroStr.trim().isEmpty() && !tipoFiltroStr.equals("0")) {
+                        try {
+                            tipoFiltro = Integer.parseInt(tipoFiltroStr);
+                        } catch (NumberFormatException e) {
+                            // Ignorar error de conversión
+                        }
+                    }
+                    
+                    java.util.List<modelos.mascotas> mascotas;
+                    
+                    // Si hay filtros, usar búsqueda con filtros, sino usar listado normal
+                    if ((nombreBusqueda != null && !nombreBusqueda.trim().isEmpty()) || tipoFiltro != null) {
+                        mascotas = mDAO.buscarConFiltros(nombreBusqueda, tipoFiltro);
+                    } else {
+                        mascotas = mDAO.listar();
+                    }
+                    
+                    // Cargar tipos para el filtro
+                    modelosDAO.tiposDAO tDAO = new modelosDAO.tiposDAO();
+                    java.util.List<modelos.tipomascota> tipos = tDAO.listar();
+                    
                     request.setAttribute("mascotas", mascotas);
+                    request.setAttribute("tipos", tipos);
+                    request.setAttribute("busquedaActual", nombreBusqueda);
+                    request.setAttribute("tipoFiltroActual", tipoFiltro);
                     request.getRequestDispatcher("vermascotas.jsp").forward(request, response);
                 }
             } catch (Exception e) {
