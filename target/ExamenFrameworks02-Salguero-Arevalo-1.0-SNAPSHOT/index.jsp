@@ -99,54 +99,17 @@
         </style>
     </head>
     <body>
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-            <div class="container">
-                <a class="navbar-brand" href="index.jsp">
-                    <i class="fas fa-paw"></i> Sistema de Mascotas
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="index.jsp">
-                                <i class="fas fa-home"></i> Inicio
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="mascotasDropdown" role="button" 
-                               data-bs-toggle="dropdown">
-                                <i class="fas fa-dog"></i> Mascotas
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="mascotasController">
-                                    <i class="fas fa-list"></i> Ver Mascotas
-                                </a></li>
-                                <li><a class="dropdown-item" href="mascotasController?accion=agregar">
-                                    <i class="fas fa-plus"></i> Agregar Mascota
-                                </a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="tiposDropdown" role="button" 
-                               data-bs-toggle="dropdown">
-                                <i class="fas fa-tags"></i> Tipos
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="tipomascotacontroller?accion=listar">
-                                    <i class="fas fa-list"></i> Ver Tipos
-                                </a></li>
-                                <li><a class="dropdown-item" href="tipomascotacontroller?accion=nuevo">
-                                    <i class="fas fa-plus"></i> Agregar Tipo
-                                </a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <%@ include file="header.jsp" %>
+        <style>
+            /* Agregar estilo para que el navbar sea fixed-top */
+            .navbar {
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1030;
+            }
+        </style>
 
         <!-- Hero Section -->
         <section class="hero-section">
@@ -160,6 +123,9 @@
                         <div class="d-flex justify-content-center gap-3 flex-wrap">
                             <a href="mascotasController" class="btn btn-light btn-custom">
                                 <i class="fas fa-eye me-2"></i>Ver Mascotas
+                            </a>
+                            <a href="adoptantesController" class="btn btn-outline-light btn-custom">
+                                <i class="fas fa-users me-2"></i>Ver Adoptantes
                             </a>
                             <a href="mascotasController?accion=agregar" class="btn btn-outline-light btn-custom">
                                 <i class="fas fa-plus me-2"></i>Agregar Mascota
@@ -180,7 +146,7 @@
                     </div>
                 </div>
                 <div class="row g-4">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="card feature-card">
                             <div class="card-body text-center p-4">
                                 <i class="fas fa-list feature-icon"></i>
@@ -192,7 +158,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
+                        <div class="card feature-card">
+                            <div class="card-body text-center p-4">
+                                <i class="fas fa-users feature-icon"></i>
+                                <h5 class="card-title">Gestión de Adoptantes</h5>
+                                <p class="card-text">Administra la información de las personas interesadas en adoptar mascotas.</p>
+                                <a href="adoptantesController" class="btn btn-primary">
+                                    <i class="fas fa-arrow-right me-1"></i>Ver Adoptantes
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="card feature-card">
                             <div class="card-body text-center p-4">
                                 <i class="fas fa-tags feature-icon"></i>
@@ -204,7 +182,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="card feature-card">
                             <div class="card-body text-center p-4">
                                 <i class="fas fa-plus-circle feature-icon"></i>
@@ -262,6 +240,9 @@
                         <div class="d-flex justify-content-center gap-3 flex-wrap">
                             <a href="mascotasController" class="btn btn-light btn-custom">
                                 <i class="fas fa-list me-2"></i>Ver todas las mascotas
+                            </a>
+                            <a href="adoptantesController" class="btn btn-outline-light btn-custom">
+                                <i class="fas fa-users me-2"></i>Ver adoptantes
                             </a>
                             <a href="tipomascotacontroller?accion=listar" class="btn btn-outline-light btn-custom">
                                 <i class="fas fa-tags me-2"></i>Gestionar tipos
