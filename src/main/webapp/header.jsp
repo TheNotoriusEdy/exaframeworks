@@ -50,23 +50,6 @@
                     </ul>
                 </li>
             </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" 
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-user"></i> Usuario
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" href="#">
-                            <i class="fas fa-user-cog"></i> Perfil
-                        </a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">
-                            <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
-                        </a></li>
-                    </ul>
-                </li>
-            </ul>
         </div>
     </div>
 </nav>
