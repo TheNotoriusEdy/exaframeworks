@@ -13,6 +13,7 @@ public class mascotas {
     private int id_tipo;
     private String nombre;
     private String foto;
+    private String tipoNombre; // Nombre del tipo de mascota
 
     public mascotas() {
     }
@@ -56,8 +57,13 @@ public class mascotas {
     public void setFoto(String foto) {
         this.foto = foto;
     }
-    
-    
-    
+
+    public String getTipoNombre() {
+        return tipoNombre;
+    }
+
+    public void setTipoNombre(String tipoNombre) {
+        this.tipoNombre = tipoNombre;
+    }
     
 }

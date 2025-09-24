@@ -30,7 +30,9 @@ public class mascotasDAO {
     //Consulta General
     public List listar(){
         ArrayList<mascotas> list = new ArrayList<>();
-        String sql = "SELECT * FROM mascotas";
+        String sql = "SELECT m.id_mascota, m.id_tipo, m.nombre, m.foto, t.nombre as tipo_nombre " +
+                     "FROM mascotas m " +
+                     "LEFT JOIN tiposmascota t ON m.id_tipo = t.id_tipo";
         try {
             con = cn.getConexion();
             ps = con.prepareStatement(sql);
@@ -42,6 +44,7 @@ public class mascotasDAO {
                 m.setId_tipo(rs.getInt("id_tipo"));
                 m.setNombre(rs.getString("nombre"));
                 m.setFoto(rs.getString("foto"));
+                m.setTipoNombre(rs.getString("tipo_nombre"));
                 list.add(m);
             }
         } catch (SQLException e) {
