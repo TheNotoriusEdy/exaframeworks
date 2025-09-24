@@ -10,8 +10,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Tipos de Mascotas</title>
+        <title>Tipos de Mascotas - Sistema de Mascotas</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="vermascotas.css"/>
     </head>
     <body>
         <%@ include file="header.jsp" %>
@@ -19,7 +21,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h2>Tipos de Mascotas</h2>
+                        <h2><i class="fas fa-tags"></i> Tipos de Mascotas</h2>
                         <a href="tipomascotacontroller?accion=nuevo" class="btn btn-primary">
                             <i class="fas fa-plus"></i> Agregar Nuevo Tipo
                         </a>
@@ -43,7 +45,7 @@
                                         <td>${tipo.descripcion}</td>
                                         <td>
                                             <a href="tipomascotacontroller?accion=editar&id=${tipo.id_tipo}" 
-                                               class="btn btn-warning btn-sm">
+                                               class="btn btn-warning btn-sm me-1">
                                                 <i class="fas fa-edit"></i> Editar
                                             </a>
                                             <a href="tipomascotacontroller?accion=eliminar&id=${tipo.id_tipo}" 
@@ -56,7 +58,9 @@
                                 </c:forEach>
                                 <c:if test="${empty tipos}">
                                     <tr>
-                                        <td colspan="4" class="text-center">No hay tipos de mascotas registrados</td>
+                                        <td colspan="4" style="text-align:center; color:#888; padding:32px;">
+                                            No hay tipos de mascotas registrados.
+                                        </td>
                                     </tr>
                                 </c:if>
                             </tbody>
@@ -66,7 +70,6 @@
             </div>
         </div>
         
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

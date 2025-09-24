@@ -64,11 +64,15 @@ public class adoptantesController extends HttpServlet {
             if ("editar".equals(accion)) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 request.setAttribute("adoptante", aDAO.getAdoptanteById(id));
+                // Cargar lista de mascotas para el select
+                modelosDAO.mascotasDAO mDAO = new modelosDAO.mascotasDAO();
+                java.util.List<modelos.mascotas> mascotas = mDAO.listar();
+                request.setAttribute("mascotas", mascotas);
                 request.getRequestDispatcher("editaradoptante.jsp").forward(request, response);
             } else if ("eliminar".equals(accion)) {
                 int id = Integer.parseInt(request.getParameter("id"));
                 aDAO.eliminar(id);
-                response.sendRedirect("veradoptantes.jsp");
+                response.sendRedirect("adoptantesController");
             }
             else if ("agregar".equals(accion)) {
                 modelosDAO.mascotasDAO mDAO = new modelosDAO.mascotasDAO();
@@ -83,7 +87,7 @@ public class adoptantesController extends HttpServlet {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("veradoptantes.jsp");
+            response.sendRedirect("adoptantesController");
         }
     }
 
@@ -110,7 +114,7 @@ public class adoptantesController extends HttpServlet {
                 a.setTelefono(telefono);
                 a.setId_mascota(id_mascota);
                 aDAO.insertar(a);
-                response.sendRedirect("veradoptantes.jsp");
+                response.sendRedirect("adoptantesController");
             } else if ("actualizar".equals(accion)) {
                 int id_adoptante = Integer.parseInt(request.getParameter("id_adoptante"));
                 String nombre = request.getParameter("nombre");
@@ -122,13 +126,13 @@ public class adoptantesController extends HttpServlet {
                 a.setTelefono(telefono);
                 a.setId_mascota(id_mascota);
                 aDAO.actualizar(a);
-                response.sendRedirect("veradoptantes.jsp");
+                response.sendRedirect("adoptantesController");
             } else {
-                response.sendRedirect("veradoptantes.jsp");
+                response.sendRedirect("adoptantesController");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("veradoptantes.jsp");
+            response.sendRedirect("adoptantesController");
         }
     }
 

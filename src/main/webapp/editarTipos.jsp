@@ -10,8 +10,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Editar Tipo de Mascota</title>
+        <title>Editar Tipo de Mascota - Sistema de Mascotas</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="vermascotas.css"/>
     </head>
     <body>
         <%@ include file="header.jsp" %>
@@ -20,7 +22,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="mb-0">Editar Tipo de Mascota</h4>
+                            <h4 class="mb-0"><i class="fas fa-edit"></i> Editar Tipo de Mascota</h4>
                         </div>
                         <div class="card-body">
                             <form method="post" action="tipomascotacontroller">
@@ -56,7 +58,6 @@
             </div>
         </div>
         
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

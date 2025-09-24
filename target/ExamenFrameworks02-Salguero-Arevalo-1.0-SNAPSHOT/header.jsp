@@ -36,6 +36,20 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="adoptantesDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-users"></i> Adoptantes
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="adoptantesDropdown">
+                        <li><a class="dropdown-item" href="adoptantesController">
+                            <i class="fas fa-list"></i> Ver Adoptantes
+                        </a></li>
+                        <li><a class="dropdown-item" href="adoptantesController?accion=agregar">
+                            <i class="fas fa-user-plus"></i> Agregar Adoptante
+                        </a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="tiposDropdown" role="button" 
                        data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-tags"></i> Tipos
