@@ -51,19 +51,69 @@ public class tiposDAO {
     //Consultar por ID
     public tipomascota listarId(int id){
         tipomascota t = new tipomascota();
-        String sql = "SELECT * FROM tiposmascota WHERE id_tipo="+id;
+        String sql = "SELECT * FROM tiposmascota WHERE id_tipo=?";
         try {
             con = cn.getConexion();
             ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
             rs = ps.executeQuery();
 
             while (rs.next()) {
                 t.setId_tipo(rs.getInt("id_tipo"));
-                t.setId_tipo(rs.getInt("tipo"));
+                t.setNombre(rs.getString("nombre"));
+                t.setDescripcion(rs.getString("descripcion"));
             }
         } catch (SQLException e) {
             System.out.println(e.toString());
         }
         return t;
+    }
+    
+    //Agregar nuevo tipo
+    public boolean agregar(tipomascota t){
+        String sql = "INSERT INTO tiposmascota (nombre, descripcion) VALUES (?, ?)";
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, t.getNombre());
+            ps.setString(2, t.getDescripcion());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        }
+    }
+    
+    //Actualizar tipo
+    public boolean actualizar(tipomascota t){
+        String sql = "UPDATE tiposmascota SET nombre=?, descripcion=? WHERE id_tipo=?";
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, t.getNombre());
+            ps.setString(2, t.getDescripcion());
+            ps.setInt(3, t.getId_tipo());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        }
+    }
+    
+    //Eliminar tipo
+    public boolean eliminar(int id){
+        String sql = "DELETE FROM tiposmascota WHERE id_tipo=?";
+        try {
+            con = cn.getConexion();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        }
     }
 }
