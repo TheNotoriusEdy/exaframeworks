@@ -77,19 +77,7 @@
                                             <td>${adoptante.id_adoptante}</td>
                                             <td>${adoptante.nombre}</td>
                                             <td>${adoptante.telefono}</td>
-                                            <td>
-                                                <c:choose>
-                                                    <c:when test="${not empty adoptante.nombreMascota}">
-                                                        <strong>${adoptante.nombreMascota}</strong><br>
-                                                        <small class="text-muted">ID: ${adoptante.id_mascota}</small><br>
-                                                        <span class="badge bg-info">${adoptante.tipoMascota}</span>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span class="text-muted">ID: ${adoptante.id_mascota}</span><br>
-                                                        <small class="text-danger">Mascota no encontrada</small>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </td>
+                                            <td>${adoptante.id_mascota}</td>
                                             <td>
                                                 <a class="btn btn-warning btn-sm me-1" href="adoptantesController?accion=editar&id=${adoptante.id_adoptante}">
                                                     <i class="fas fa-edit"></i> Editar
