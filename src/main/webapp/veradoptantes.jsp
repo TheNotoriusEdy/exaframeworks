@@ -42,8 +42,8 @@
                                 <input type="text" class="form-control" id="filtroTelefono" placeholder="Número de teléfono...">
                             </div>
                             <div class="col-md-3">
-                                <label for="filtroMascota" class="form-label">Filtrar por ID Mascota:</label>
-                                <input type="number" class="form-control" id="filtroMascota" placeholder="ID de mascota...">
+                                <label for="filtroMascota" class="form-label">Buscar por Mascota:</label>
+                                <input type="text" class="form-control" id="filtroMascota" placeholder="Nombre o tipo de mascota...">
                             </div>
                             <div class="col-md-2 d-flex align-items-end">
                                 <button type="button" class="btn btn-outline-secondary w-100" onclick="limpiarFiltros()">
@@ -58,9 +58,9 @@
                         <thead class="table-dark">
                             <tr>
                                 <th>ID</th>
-                                <th>Nombre</th>
+                                <th>Adoptante</th>
                                 <th>Teléfono</th>
-                                <th>ID Mascota</th>
+                                <th>Mascota</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -77,7 +77,19 @@
                                             <td>${adoptante.id_adoptante}</td>
                                             <td>${adoptante.nombre}</td>
                                             <td>${adoptante.telefono}</td>
-                                            <td>${adoptante.id_mascota}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${not empty adoptante.nombreMascota}">
+                                                        <strong>${adoptante.nombreMascota}</strong><br>
+                                                        <small class="text-muted">ID: ${adoptante.id_mascota}</small><br>
+                                                        <span class="badge bg-info">${adoptante.tipoMascota}</span>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <span class="text-muted">ID: ${adoptante.id_mascota}</span><br>
+                                                        <small class="text-danger">Mascota no encontrada</small>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                             <td>
                                                 <a class="btn btn-warning btn-sm me-1" href="adoptantesController?accion=editar&id=${adoptante.id_adoptante}">
                                                     <i class="fas fa-edit"></i> Editar

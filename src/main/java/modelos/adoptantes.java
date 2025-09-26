@@ -13,6 +13,8 @@ public class adoptantes {
     private String nombre;
     private String telefono;
     private int id_mascota;
+    private String nombreMascota;
+    private String tipoMascota;
 
     public adoptantes() {
     }
@@ -22,6 +24,15 @@ public class adoptantes {
         this.nombre = nombre;
         this.telefono = telefono;
         this.id_mascota = id_mascota;
+    }
+    
+    public adoptantes(int id_adoptante, String nombre, String telefono, int id_mascota, String nombreMascota, String tipoMascota) {
+        this.id_adoptante = id_adoptante;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.id_mascota = id_mascota;
+        this.nombreMascota = nombreMascota;
+        this.tipoMascota = tipoMascota;
     }
 
     public int getId_adoptante() {
@@ -55,7 +66,20 @@ public class adoptantes {
     public void setId_mascota(int id_mascota) {
         this.id_mascota = id_mascota;
     }
-    
-    
-    
+
+    public String getNombreMascota() {
+        return nombreMascota;
+    }
+
+    public void setNombreMascota(String nombreMascota) {
+        this.nombreMascota = nombreMascota;
+    }
+
+    public String getTipoMascota() {
+        return tipoMascota;
+    }
+
+    public void setTipoMascota(String tipoMascota) {
+        this.tipoMascota = tipoMascota;
+    }
 }

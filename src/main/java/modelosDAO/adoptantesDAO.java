@@ -29,7 +29,11 @@ public class adoptantesDAO {
     //Consulta General
     public List listar(){
         ArrayList<adoptantes> list = new ArrayList<>();
-        String sql = "SELECT * FROM adoptantes";
+        String sql = "SELECT a.id_adoptante, a.nombre, a.telefono, a.id_mascota, " +
+                     "m.nombre as nombre_mascota, t.nombre as tipo_mascota " +
+                     "FROM adoptantes a " +
+                     "LEFT JOIN mascotas m ON a.id_mascota = m.id_mascota " +
+                     "LEFT JOIN tipomascota t ON m.id_tipo = t.id_tipo";
         try {
             con = cn.getConexion();
             ps = con.prepareStatement(sql);
@@ -41,6 +45,8 @@ public class adoptantesDAO {
                 a.setNombre(rs.getString("nombre"));
                 a.setTelefono(rs.getString("telefono"));
                 a.setId_mascota(rs.getInt("id_mascota"));
+                a.setNombreMascota(rs.getString("nombre_mascota"));
+                a.setTipoMascota(rs.getString("tipo_mascota"));
                 list.add(a);
             }
         } catch (SQLException e) {
